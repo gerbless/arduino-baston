@@ -1,0 +1,7 @@
+{
+  "name": "app-baston",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
