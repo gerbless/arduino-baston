@@ -9,7 +9,7 @@ import { async } from '@angular/core/testing';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
-
+  Devices: any[];
   constructor(private bluetoothSerial: BluetoothSerial, private alertController: AlertController){}
 
   ActivarBluetooth(){
@@ -32,6 +32,44 @@ export class Tab1Page {
     });
   }
 
+  listdivices(){
+    this.bluetoothSerial.list().then(response => {
+      this.Devices = response;
+     }, err => {
+      console.log('error');
+     });
+  }
+
+  connect(address){
+    this.bluetoothSerial.connect(address).subscribe(succes => {
+      this.deviceConnected();
+    }, err => {
+      console.log(err)
+    });
+  }
+
+  deviceConnected(){
+    this.bluetoothSerial.subscribe('/n').subscribe(success => {
+     this.hundler(success);
+    });
+  }
+
+  hundler(val: any){
+    console.log(val);
+  }
+
+  Disconected(){
+    this.bluetoothSerial.disconnect();
+    console.log('dispositivo desconectado')
+  }
+
+  sebData(){
+    this.bluetoothSerial.write('7').then(reponse => {
+      console.log('ok');
+    }, err => {
+      console.log('a problem');
+    });
+  }
 /*Devices
   constructor(private bluetoothSerial:BluetoothSerial,private alertController: AlertController) {}
 

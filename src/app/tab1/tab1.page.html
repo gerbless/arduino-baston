@@ -13,13 +13,13 @@
     </ion-toolbar>
   </ion-header>
   <div id="container">
-  
-    <div *ngfor="let data of Devices">
-      
+    <ng-container *ngFor="let data of Devices">
+    <div>
       <p>{{data.name}}</p>
       <p>{{data.id}}</p>
       <button (click)="connect(data.address)">conectar</button>
-  </div>
+    </div>
+  </ng-container>
 
   </div>
   <app-explore-container name="Tab 1 page"></app-explore-container>
