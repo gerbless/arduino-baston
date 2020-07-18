@@ -1,17 +1,41 @@
 import { Component } from '@angular/core';
-import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx'
-import {AlertController} from '@ionic/angular'
-import { Sauce } from 'protractor/built/driverProviders';
-import { ConsoleReporter } from 'jasmine';
+import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
+import {AlertController} from '@ionic/angular';
+import { async } from '@angular/core/testing';
+
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
-Devices
+
+  constructor(private bluetoothSerial: BluetoothSerial, private alertController: AlertController){}
+
+  ActivarBluetooth(){
+    this.bluetoothSerial.isEnabled()
+      .then(res => {
+        this.isEnabled('IsOn');
+      }, err => {
+        this.isEnabled('IsOff');
+      });
+  }
+
+  async isEnabled(msg: string){
+    const alert = await this.alertController.create({
+      header: 'Alerta',
+      message: msg,
+      buttons: [{
+        text: 'ok',
+        handler: () => console.log('ok')
+      }]
+    });
+  }
+
+/*Devices
   constructor(private bluetoothSerial:BluetoothSerial,private alertController: AlertController) {}
 
+  
   ActivarBluetooth(){
   this.bluetoothSerial.isEnabled().then(response=>{
     //this.isEnabled("IsOn");
@@ -20,6 +44,7 @@ Devices
     this.isEnabled("IsOff");
   })
 }
+
 listdivices (){
   this.bluetoothSerial.list().then(response=>{ 
    this.Devices=response
@@ -72,5 +97,5 @@ const alert =await this.alertController.create({
     }
    }]
   })
- }
+ }*/
 }
